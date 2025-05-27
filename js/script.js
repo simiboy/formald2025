@@ -191,7 +191,7 @@ const getRandomSuggestions = () => {
 
 function resetInactivityTimer() {
   clearTimeout(inactivityTimer);
-  inactivityTimer = setTimeout(showSuggestions, 1000);
+  inactivityTimer = setTimeout(showSuggestions, 5000);
   console.log("reset");
 }
 
