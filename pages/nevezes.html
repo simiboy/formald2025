@@ -1,0 +1,235 @@
+<style>
+    :root {
+    --firstcolor: #9ec8ed;
+    --secondcolor: #efeeee;
+    --playcolor: #b1a62e;
+    --firsttextcolor:black;
+    --secondtextcolor:black;
+    }
+  #warning {
+    transform: translate(75px, 60px);
+  }
+</style>
+
+<h1>Nevezés</h1>
+
+<div class="actions" id="logged-out">
+    <form class="col s12" id="login_nevezes" name="login_nevezes" method="post">
+        <input type="hidden" name="cmd" value="login">
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="username" name="username" type="text" class="validate">
+                <label for="username">email</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="password" name="password" type="password" class="validate">
+                <label for="password">jelszó</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 center-align">
+                <a class="btn-large red black-text" id="login"><b>Bejelentkezés</b></a>
+            </div>
+        </div>
+        <div id="lostpw" style="display: none;">
+            <div class="row">
+                <div class="col s12 center-align">
+                    <br>Nem tudsz belépni?<br>
+                    <a class="btn-large yellow black-text modal-trigger" href="#lostpwmodal"><b>Változtass jelszót!</b></a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 center-align">
+                <br>Nem regisztráltál még?<br>
+                <a class="btn-large blue black-text modal-trigger" href="#regmodal"><b>Regisztrálj!</b></a>
+            </div>
+        </div>
+    </form>
+</div>
+<div id="logged-in" class="actions" style="display: none;">
+    <div class="row">
+        <div class="col s12">
+            <div class="row">
+                <div class="col s12 center-align">
+                    <strong class="flow-text">Bejelentkezve: <span id="session_user" class="flow-text"></span></strong>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 center-align">
+                    <a class="btn-large red black-text" id="logout"><b class="flow-text">Kijelentkezés</b></a>
+                </div>
+            </div>
+        </div>
+        <div class="col s12">
+            <p>
+                Üres nevezési lapot kapsz, ha az <strong>Új nevezési lap létrehozása</strong> gombra kattintasz. A nevezési lapok kitöltését félbe is szakíthatod, a hiányzó adatokat pótolhatod később, a megadottakat tetszés szerint módosíthatod.
+            </p>
+            <p>
+                <strong>Ha több munkát nevezel, mindegyik számára hozz létre egy-egy nevezési lapot.</strong>
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="center-align" id="nevezesBTN">
+            <a class="btn-large blue black-text" data-target="newentry"><b class="flow-text">Új nevezési lap</b></a>
+        </div>
+    </div>
+    <div id="lezaratlan_container" style="">
+        <h4 class="center-align">Lezáratlan nevezési lapok
+            <i class="material-icons tooltipped" data-position="bottom" data-tooltip="
+                                <p class=&quot;tooltip-help&quot;>A megkezdett nevezési lapokat a <strong>Lezáratlan nevezési lapok</strong> szakaszban láthatod.<br>
+                                    Ha a <a class=&quot;btn-floating blue&quot;><i class=&quot;material-icons left&quot;>mode_edit</i></a> <strong>Módosítás</strong> gombra kattintasz, folytathatod a nevezési lap kitöltését.<br>
+                                    Ha meggondoltad magadat, nevezési lapot a <a class=&quot;btn-floating red&quot; ><i class=&quot;material-icons left&quot;>delete</i></a> <strong>Törlés</strong> gombbal törölhetsz.<br>
+                                    Újabb fájlokat a <a class=&quot;btn-floating blue&quot;><i class=&quot;material-icons left&quot;>mode_edit</i></a> <strong>Módosítás</strong> gombra kattintás után tölthetsz fel, amennyiben a nevezési lapon ezt a beadási módot választottad.<br>
+                                    Amikor egy nevezési lap kitöltésével elkészültél, és úgy gondolod, már nem fogsz módosítani az adatokon, a <a class=&quot;btn-floating blue&quot;><i class=&quot;material-icons left&quot;>mode_edit</i></a> <strong>Módosítás</strong> gombra kattintás után tudod a nevezési lapodat lezárni.</p>
+                                    <p class=&quot;tooltip-help&quot;>Csak lezárt nevezési lapot tudsz kinyomtatni.</p>
+                                    ">info</i>
+        </h4>
+        <table class="highlight" id="lezaratlan_table">
+            <thead>
+                <tr>
+                    <th style="width:20%">Cím</th>
+                    <th style="width:60%">Feltöltött fájlok</th>
+                    <th style="width:20%" class="center-align">Módosítás / Törlés</th>
+                </tr>
+            </thead>
+            <tbody id="lezaratlan_tbody">
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td class="center-align">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="lezart_container">
+        <h4 class="center-align">Lezárt nevezési lapok
+            <i class="material-icons tooltipped" data-position="bottom" data-tooltip="
+                                    <p class=&quot;tooltip-help&quot;>A lezárást követően kérjük, nyomtasd ki a nevezési lapo(ka)t
+                                            <a class=&quot;btn-floating blue&quot;><i class=&quot;material-icons&quot;>print</i></a> <strong>(&quot;NYOMTATÁS&quot; gomb)</strong>,<br>
+                                            és a szükséges aláírásokkal ellátva add az(oka)t postára, vagy töltsd fel
+                                            <a class=&quot;btn-floating blue&quot;><i class=&quot;material-icons left&quot;>input</i></a> <strong>(&quot;FELTÖLTÉS&quot; gomb).</strong><br>
+                                            A rendszer <strong>egyetlen fájl</strong> feltöltését engedélyezi, így javasoljuk,
+                                    hogy tömörítve vagy pdf formátumban töltsd fel a nevezési lap oldalait!</p>
+                                    ">info</i>
+        </h4>
+        <table class="highlight" id="lezart_table">
+            <thead>
+                <tr>
+                    <th style="width:20%">Cím</th>
+                    <th style="width:60%">Feltöltött nevezési lap</th>
+                    <th style="width:20%" class="center-align">Nevezési lap<br>nyomtatása / feltöltése</th>
+                </tr>
+            </thead>
+            <tbody id="lezart_tbody">
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td class="center-align">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h6 class="red-text">Nevezésed csak akkor érvényes, ha az aláírt nevezési lapot feltöltötted vagy postán elküldted a C<sup>3</sup> Alapítványhoz!</h6>
+        <div class="progress" style="display:none;" id="progressbar_div">
+            <div class="determinate progress-bar" style="width: 0%"></div>
+        </div>
+        <input type="file" id="upFile" name="file" style="width:1px;height:1px;visibility:hidden;">
+    </div>
+    <div id="elfogadott_container">
+        <h4 class="center-align">Elfogadott nevezési lapok</h4>
+        <table class="highlight" id="elfogadott_table">
+            <thead>
+                <tr>
+                    <th style="width:20%">Cím</th>
+                    <th style="width:60%">Feltöltött nevezési lap</th>
+                    <th style="width:20%" class="center-align"></th>
+                </tr>
+            </thead>
+            <tbody id="elfogadott_tbody">
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td class="center-align">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<p>
+    <b>Ahhoz, hogy alkotásoddal elindulhass a &lt;19 Formáld a világod! versenyen</b>, nevezned kell.
+    </p>
+    <p>
+        Teendők:<br>
+        &gt; ellenőrizd, hogy nem töltötted-e be a 19. életévedet,<br>
+        &gt; regisztrálj ezen az oldalon,<br>
+        &gt; töltsd fel a pályamunkádat,<br>
+        &gt; nyomtasd ki, írd alá, szkenneld be és töltsd fel a nevezési lapot!
+        (ha nem tudod feltölteni, postán is beküldheted.)
+    </p>
+    <p>
+        <b>A regisztráció és a bejelentkezés után</b> létrehozhatod és elküldheted személyes
+        adatlapodat, amelyet egyből ki is nyomtathatsz, hogy aláírva és feltöltve
+        megerősítsd nevezésedet. Javasoljuk, hogy zip-pelve vagy egy pdf formátumú fájlként töltsétek fel
+        a nevezési lap oldalait! <b>A kitöltött, aláírt adatlap nélkül nem érvényes a nevezésed!</b>
+    </p>
+    <p>
+        Ezen a felületen kell feltöltened a pályaművedet is!
+        Ha a pályaműved - mérete vagy jellege miatt - nem alkalmas a netes feltöltésre,
+        jelezd ezt az online nevezésedben, és alkotásodat vagy az adathordozót,
+        az aláírt jelentkezési lappal együtt juttasd el címünkre postai úton:
+    </p>
+    <p><b>
+        C<sup>3</sup> Kulturális és Kommunikációs Központ<br>
+        1146 Budapest, Hermina út 22.<br>
+        A küldeményre írd rá: "Formáld a világod! verseny"
+    </b></p>
+    <p>
+        A pályamunkák és a nevezési lapok feltöltésének (vagy postára adásának) határideje:
+    <h3 class="red-text deadline"> 
+    </h3>
+    </p>
+    <h3>A nevezés menete röviden:</h3>
+    <p>
+        1. regisztráció <br>
+        2. bejelentkezés<br>
+        3. személyes adatok rögzítése<br>
+        4. nevezési lap létrehozása<br>
+        5. nevezési lap lezárása<br>
+        6. pályamű feltöltése vagy az adathordozó elkészítése<br>
+        7. nevezési lap nyomtatása<br>
+        8. aláírás, feltöltés/postára adás
+    </p>
+    <p>
+        <b>Figyelj oda, hogy e-mail címedet pontosan add meg!<br>
+            Az eredményről a januári kiállítás keretében történő
+            díjátadó előtt telefonon értesítünk mindenkit.
+        </b>
+    </p>
+    <p>
+        Amennyiben kérdésed van, írj! <a href="mailto:verseny@c3.hu">verseny@c3.hu</a>
+    </p>
+
+    <script type="text/javascript" src="nevezes/js/iframeResizer.min.js"></script>
+
+    <div class="modal regmodal" id="regmodal" tabindex="0" role="dialog">
+        <div class="modal-content">
+            <iframe id="reg_iframe" src="nevezes/regisztracio.php" width="100%" scrolling="no" frameborder="0" allowtransparency="true" marginheight="0" marginwidth="0" style="overflow: hidden; height: 14px;"></iframe>
+        </div>
+    </div>
+      <div class="modal lostpwmodal" id="lostpwmodal" tabindex="0" role="dialog">
+        <div class="modal-content">
+          <iframe id="lostpw_iframe" src="nevezes/lostpw.php" width="100%" scrolling="no" frameborder="0" allowtransparency="true" marginheight="0" marginwidth="0" style="overflow: hidden; height: 14px;"></iframe>
+        </div>
+    </div>
+    <div class="modal" id="newentry" tabindex="0" role="dialog">
+        <div class="modal-content">
+          <iframe id="newentry_iframe" src="about:blank" width="100%" scrolling="no" frameborder="0" allowtransparency="true" marginheight="0" marginwidth="0" style="overflow: hidden; height: 645.5px;"></iframe>
+        </div>
+    </div>
+

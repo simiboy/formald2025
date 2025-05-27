@@ -1,0 +1,125 @@
+.form-header {
+    width: 6em;
+    margin: 0.5rem auto;
+}
+
+.reg-page label{
+  color: #1e1e1e;
+}
+
+.app-page label{
+  color: #1e1e1e;
+}
+
+.app-page .input-field label{
+  color: #3e3e3e;
+}
+
+.reg-page {
+  height: auto;
+}
+
+.row {
+  margin-bottom: .5rem;
+}
+
+.input-field {
+    margin-top: .4rem;
+    margin-bottom: .4rem;
+}
+
+h3 {
+  margin: 0.5rem 0;
+}
+
+select.letszam {
+  width: 50px;
+  padding: 0;
+  height: 2rem;
+  display: inline-block;
+}
+
+.url_input {
+  width: 50% !important;
+  height: 2rem !important;
+  padding-left: 20px !important;
+}
+
+.url_span {
+  width: 100%;
+}
+
+.input-alert {
+  border: 1px solid red !important;
+}
+
+h1 {
+	font-family: verseny, Sans-Serif !important;
+	text-transform: uppercase;
+	font-size: 3.3em !important;
+	color: var(--blue);
+}
+
+h1.verseny {
+	font-size: 2.5em !important;
+	line-height: 1.5em;
+	margin: 0;
+	text-align: center;
+}
+
+h2 {
+	font-size: 2rem;
+	position: relative !important;
+	width: 100% !important;
+	text-transform: uppercase !important;
+	text-align: center;
+}
+
+h2.verseny {
+    font-family: verseny, Sans-Serif !important;
+    line-height: 1.5em;
+    margin: 0;
+		font-size: 1em;
+}
+
+h3 {
+	position: relative !important;
+	width: 100% !important;
+	text-transform: uppercase !important;
+	text-align: left;
+	font-size: 1.5rem;
+}
+
+h4 {
+	text-transform: uppercase;
+	color: var(--blue);
+	margin-left: 0em;
+	padding: 0;
+}
+
+h5 {
+	text-transform: uppercase;
+	font-size: 1.5em;
+}
+
+h6 {
+	text-transform: uppercase;
+	font-size: 1.4em;
+	margin: 0em;
+	margin-top: 1em;
+}
+
+h5 {
+	margin-top: 1.5em;
+}
+
+.separator {
+	display: inline-block;
+	width: 50px;
+	text-align: center;
+}
+
+@media only screen and (max-width: 400px) {
+	.datepicker-modal{transform:scale(0.8) translateX(-6%) !important;
+	}
+}
