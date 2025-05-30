@@ -6,10 +6,6 @@ const logData = [];
 
 // Command handlers
 const commands = {
-  help: {
-    type: 'dynamic',
-    output: async () => await loadFile('help.html')
-  },
   clear: {
     type: 'function',
     output: () => {
@@ -22,9 +18,49 @@ const commands = {
     type: 'dynamic',
     output: async () => await loadFile('about.html')
   },
+  dijak: {
+    type: 'dynamic',
+    output: async () => await loadFile('dijak.html')
+  },
+  help: {
+    type: 'dynamic',
+    output: async () => await loadFile('help.html')
+  },
+  idozites: {
+    type: 'dynamic',
+    output: async () => await loadFile('idozites.html')
+  },
+  inspiracio: {
+    type: 'dynamic',
+    output: async () => await loadFile('inspiracio.html')
+  },
+  kiallitas: {
+    type: 'dynamic',
+    output: async () => await loadFile('kiallitas.html')
+  },
+  workshop: {
+    type: 'dynamic',
+    output: async () => await loadFile('workshop.html')
+  },
+  kapcsolat: {
+    type: 'dynamic',
+    output: async () => await loadFile('kapcsolat.html')
+  },
   korabbi: {
     type: 'dynamic',
     output: async () => await loadFile('korabbi_versenyek.html')
+  },
+  letoltesek: {
+    type: 'dynamic',
+    output: async () => await loadFile('letoltesek.html')
+  },
+  zsuri: {
+    type: 'dynamic',
+    output: async () => await loadFile('zsuri.html')
+  },
+  nevezes: {
+    type: 'dynamic',
+    output: async () => await loadFile('nevezes.html')
   },
   gyik: {
     type: 'dynamic',
@@ -101,7 +137,7 @@ input.addEventListener('keydown', async (e) => {
                     resetInactivityTimer();
                     parent.appendChild(document.createTextNode(word));
                     scrollToBottom();
-                    await delay(50);
+                    await delay(10);
                 }
             } else if (node.nodeType === Node.ELEMENT_NODE) {
             const clone = node.cloneNode(false); // clone the element without its children
@@ -117,6 +153,9 @@ input.addEventListener('keydown', async (e) => {
         (async () => {
           for (let node of nodes) {
             await typeNode(node, respLine);
+          }
+          if (fullCmd === 'gyik') {
+            setupGyik();
           }
         })();
       }

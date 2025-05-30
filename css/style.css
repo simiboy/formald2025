@@ -21,7 +21,7 @@ body {
 }
 
 #terminal {
-  max-width: 800px;
+  max-width:800px;
   margin: auto;
   padding: 30px;
 }
@@ -53,7 +53,6 @@ td:first-child {
   font-weight: bold;
 }
 
-
 .suggestions {
   margin-top: 0.5rem;
 }
@@ -70,4 +69,127 @@ td:first-child {
 
 .suggestion:hover {
   background-color: #ccc;
+}
+
+p a{
+  padding: 0px 5px;
+  margin-right: 5px;
+  text-decoration: none;
+  color: var(--blue);
+}
+p a:hover{
+  background-color: var(--blue);
+  color: white;
+}
+
+
+/*korabbiak*/
+.grid_container {
+  display: flex;
+  align-content: flex-start;
+  gap: 10px 10px;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+.image_container {
+  position: relative;
+  width: 30%;
+  display: flex;
+}
+.image_container a {
+  width: 100%;
+}
+.korabbi-kep {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.image_overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: 0.1s;
+  background-color: var(--blue);
+  top: 0;
+}
+.image_container:hover .image_overlay,
+.image_container:active .image_overlay {
+  opacity: 1;
+}
+
+.image_text {
+  font-size: 2rem;
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+/* kontakt */
+
+.ccc {
+  max-width: 400px;
+}
+.logo {
+  position: relative;
+  display: inline-block;
+  width: 0;
+  min-width: 200px;
+  padding: 1em;
+  min-height: 80px;
+  vertical-align: middle;
+  text-align: center;
+}
+/* gyik */
+
+.gyik {
+  max-width: 1000px;
+  margin: auto;
+}
+
+.question-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+  margin-bottom: 20px;
+  width: 90vw;
+  margin-left: calc(50% - 45vw);
+}
+
+.question {
+  background-color: #ffffff;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+.answer-area {
+  background-color: #ffffff;
+  padding: 20px;
+  padding-top: 5px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  border-top: 5px solid var(--blue);
+  min-height: 200px;
+}
+
+#question-display {
+  font-size: 1.5em;
+  color: #2a2a2a;
+  margin-bottom: 10px;
+}
+
+#answer-display {
+  font-size: 1.1em;
+  color: #444;
+}
+.question.selected {
+  background-color: var(--blue);
+  color: white;
 }
