@@ -87,6 +87,9 @@ async function loadFile(filename) {
 // Handle command input
 input.addEventListener('keydown', async (e) => {
   if (e.key === 'Enter') {
+    removeSuggestions();
+
+    
     const raw = input.value.trim();
     const [cmd, ...args] = raw.split(' ');
     const fullCmd = cmd.toLowerCase();
@@ -175,8 +178,8 @@ const inputLine = document.querySelector('.input-line');
 
 document.body.addEventListener('click', (e) => {
     
-    // If the clicked element is NOT a link (<a>)...
-    if (e.target.tagName.toLowerCase() !== 'a') {
+    // If the clicked element is NOT a link (<a>)... or not a gyik element
+    if (e.target.tagName.toLowerCase() !== 'a' & e.target.className !== "question selected") {
         input.focus();
     }
 });
@@ -200,9 +203,6 @@ function showSuggestions() {
     span.addEventListener('click', () => {
       input.value = cmd;
 
-      // Remove suggestions
-      container.innerHTML = '';
-
       // Simulate Enter key
       const enterEvent = new KeyboardEvent('keydown', {
         bubbles: true,
@@ -217,6 +217,11 @@ function showSuggestions() {
 
     container.appendChild(span);
   });
+}
+
+function removeSuggestions(){
+  const container = document.getElementById('suggestions');
+  container.innerHTML = '';
 }
 
 const getRandomSuggestions = () => {

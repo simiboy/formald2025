@@ -1,10 +1,14 @@
-function setupGyik() {
+function setupGyik() { 
+  const lines = document.querySelectorAll(".line");
+  const targetLine = lines[lines.length - 2];
+  
+  // Now select questions and display elements *inside* this line
+  const questions = targetLine.querySelectorAll(".question");
+
+
+    if (screen.width > 760){     // desktop version
+
     // Select the second-to-last .line element
-    const lines = document.querySelectorAll(".line");
-    const targetLine = lines[lines.length - 2];
-    
-    // Now select questions and display elements *inside* this line
-    const questions = targetLine.querySelectorAll(".question");
     const questionDisplay = targetLine.querySelector("#question-display");
     const answerDisplay = targetLine.querySelector("#answer-display");
   
@@ -63,5 +67,39 @@ function setupGyik() {
     navigating = true;
     currentIndex = 0;
     updateSelection();
+    }
+    else{      // mobile version
+      questions.forEach((q, index) => {
+        q.addEventListener("click", () => {
+          // Delete all items with class "mobile-answer"
+          document.querySelectorAll(".mobile-answer").forEach(el => el.remove());
+      
+          if (!q.classList.contains("selected")) {
+            
+            // Remove "selected" class from all questions
+            questions.forEach(item => item.classList.remove("selected"));
+            // Add selected class to q
+            q.classList.add("selected");
+      
+            // Create a div with the class "mobile-answer"
+            const answerDiv = document.createElement("div");
+            answerDiv.classList.add("mobile-answer");
+            answerDiv.innerHTML = q.getAttribute("data-answer");
+      
+            // Insert the div after q
+            q.parentNode.insertBefore(answerDiv, q.nextSibling);
+
+            // scroll to it
+            window.scrollTo({ top: q.getBoundingClientRect().top + window.scrollY - 10, behavior: 'smooth' });
+
+          }
+          else{
+            
+            // Remove "selected" class from all questions
+            questions.forEach(item => item.classList.remove("selected"));
+          }
+        });
+      });
+    }
   }
   
