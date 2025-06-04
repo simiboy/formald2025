@@ -70,6 +70,17 @@ const commands = {
     type: "dynamic",
     output: async () => await loadFile("english.html"),
   },
+  jatek: {
+    type: "function",
+    output: () => {
+      startHangmanGame();
+      return null;
+    },
+  },
+  color: {
+    type: "function",
+    output: changeBackgroundColor,
+  },
 };
 
 // Reusable file loader function
@@ -93,6 +104,18 @@ input.addEventListener("keydown", async (e) => {
     const fullCmd = cmd.toLowerCase();
     const param = args.join(" ");
     input.value = "";
+
+    // Hangman override: if game is active and input is one letter
+    if (
+      hangman &&
+      !hangman.isGameOver &&
+      raw.length === 1 &&
+      /^[a-záéíóöőúüűA-ZÁÉÍÓÖŐÚÜŰ]$/.test(raw)
+    ) {
+      handleHangmanGuess(raw);
+      input.value = "";
+      return;
+    }
 
     const outputLine = document.createElement("div");
     outputLine.className = "line";
@@ -268,8 +291,53 @@ function handleHash() {
   }
 }
 
+function changeBackgroundColor(param) {
+  const color = param.trim();
+
+  if (color.toLowerCase() === "default") {
+    document.body.style.backgroundColor = "";
+    document.body.style.color = "";
+    return `A háttérszín visszaállítva az alapértelmezettre.`;
+  }
+
+  const isValidColor =
+    /^#[0-9A-Fa-f]{3}([0-9A-Fa-f]{3})?$/.test(color) || /^[a-zA-Z]+$/.test(color);
+
+  if (!isValidColor) {
+    return `Érvénytelen szín: "${color}". Használj érvényes színnevet vagy hex kódot (#RRGGBB).`;
+  }
+
+  // Create a temporary element to compute the actual color
+  const temp = document.createElement("div");
+  temp.style.color = color;
+  temp.style.display = "none";
+  document.body.appendChild(temp);
+
+  const computedColor = getComputedStyle(temp).color;
+  document.body.removeChild(temp);
+
+  // Extract RGB values
+  const rgb = computedColor.match(/\d+/g).map(Number);
+  const luminance = (0.299 * rgb[0] + 0.587 * rgb[1] + 0.114 * rgb[2]);
+
+  // Set background color
+  document.body.style.backgroundColor = color;
+
+  // Set text color for better contrast
+  if (luminance < 128) {
+    document.body.style.color = "white";
+  } else {
+    document.body.style.color = "black";
+  }
+
+  return `Szín megváltoztatva`;
+}
+
+
+
 // Run on initial load
 window.addEventListener("DOMContentLoaded", handleHash);
 
 // Also listen to hash changes (if # changes dynamically after load)
 window.addEventListener("hashchange", handleHash);
+

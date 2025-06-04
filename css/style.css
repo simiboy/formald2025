@@ -31,7 +31,7 @@ body {
 .input-line input {
   background: none;
   border: none;
-  color: black;
+  color: inherit;
   width: 90%;
   font-family: monospace;
   font-size: 1em;
@@ -43,13 +43,13 @@ body {
 table,
 th,
 td {
-  border: 1px solid black;
+  border: 1px solid;
   border-collapse: collapse;
   text-align: left;
   padding: 0.3rem;
 }
 tr.double-top td {
-  border-top: 3px double black;
+  border-top: 3px double;
 }
 td:first-child {
   font-weight: bold;
@@ -64,6 +64,7 @@ td:first-child {
   margin-right: 0.5rem;
   padding: 0.2rem 0.5rem;
   background-color: #eee;
+  color: black;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.2s;
@@ -166,6 +167,7 @@ p a:hover {
 .question,
 .mobile-answer {
   background-color: #ffffff;
+  color:black;
   padding: 10px;
   cursor: pointer;
   transition: background-color 0.3s ease;
