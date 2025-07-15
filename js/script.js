@@ -81,6 +81,10 @@ const commands = {
     type: "function",
     output: changeBackgroundColor,
   },
+  mode: {
+    type: "function",
+    output: changeMode,
+  }
 };
 
 // Reusable file loader function
@@ -291,20 +295,57 @@ function handleHash() {
   }
 }
 
+function changeMode(param) {
+  const mode = param.trim();
+
+  if (mode.toLowerCase() === "light") {
+    document.documentElement.style.setProperty('--background', "#fff");
+    document.documentElement.style.setProperty('--blue', "#2ca0d9");
+    document.documentElement.style.setProperty('--red', "#f46527");
+    document.documentElement.style.setProperty('--beige', "#c39e42");
+  }
+
+  else if (mode.toLowerCase() === "dark") {
+    document.documentElement.style.setProperty('--background', "#231f20");
+    document.documentElement.style.setProperty('--blue', "#73cea3");
+    document.documentElement.style.setProperty('--red', "#ff5b58");
+    document.documentElement.style.setProperty('--beige', "#ffffff");
+  }
+
+  else{
+    return "Válassz a világos (light) és a sötét (dark) mód között!";
+  }
+}
+
+function detectSunInHungaryAndMaybeSwitch() {
+  const now = new Date();
+  const hour = now.getHours();
+  const month = now.getMonth() + 1; // January = 1
+
+  // Rough estimate for sunrise/sunset in Hungary by month
+  const sunriseByMonth = [8, 7, 6, 6, 5, 5, 5, 6, 6, 6, 7, 8]; // hours
+  const sunsetByMonth  = [16,17,19,20,20,21,20,19,18,17,16,16]; // hours
+
+  const sunrise = sunriseByMonth[month - 1];
+  const sunset = sunsetByMonth[month - 1];
+
+  if (hour < sunrise || hour >= sunset) {
+    changeMode("dark");
+  }
+}
+
+detectSunInHungaryAndMaybeSwitch();
+
+
+
 function changeBackgroundColor(param) {
   const color = param.trim();
-
-  if (color.toLowerCase() === "default") {
-    document.body.style.backgroundColor = "";
-    document.body.style.color = "";
-    return `A háttérszín visszaállítva az alapértelmezettre.`;
-  }
 
   const isValidColor =
     /^#[0-9A-Fa-f]{3}([0-9A-Fa-f]{3})?$/.test(color) || /^[a-zA-Z]+$/.test(color);
 
   if (!isValidColor) {
-    return `Érvénytelen szín: "${color}". Használj érvényes színnevet vagy hex kódot (#RRGGBB).`;
+    return `Érvénytelen szín: "${color}". Használj érvényes színnevet vagy hex kódot. Pl: color blue, vagy color #238843`;
   }
 
   // Create a temporary element to compute the actual color
@@ -320,15 +361,18 @@ function changeBackgroundColor(param) {
   const rgb = computedColor.match(/\d+/g).map(Number);
   const luminance = (0.299 * rgb[0] + 0.587 * rgb[1] + 0.114 * rgb[2]);
 
-  // Set background color
-  document.body.style.backgroundColor = color;
 
   // Set text color for better contrast
   if (luminance < 128) {
-    document.body.style.color = "white";
+    changeMode("dark");
+    document.documentElement.style.setProperty('--blue', "white");
   } else {
-    document.body.style.color = "black";
+    changeMode("light");
+    document.documentElement.style.setProperty('--blue', "black");
   }
+
+  // Set background color
+  document.documentElement.style.setProperty('--background', color);
 
   return `Szín megváltoztatva`;
 }
@@ -396,7 +440,7 @@ function wrapCharsWithBg() {
     } else if (ch === '\n') {
       html += '<br>'; // convert newlines to <br>
     } else {
-      html += `<span style="background:white;">${ch}</span>`;
+      html += `<span style="background:var(--background);">${ch}</span>`;
     }
   }
 

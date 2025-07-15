@@ -12,7 +12,7 @@ function startHangmanGame() {
     isGameOver: false,
   };
 
-  printHangmanStatus("Akasztófa játék elindítva! Írj be egy betűt.");
+  printHangmanStatus("Játék elindítva, írj be egy betűt!");
 }
 
 // Handle letter guesses in hangman
@@ -57,9 +57,29 @@ function printHangmanStatus(customMessage = null) {
   const tried = Array.from(hangman.tried).join(", ");
   var message = "";
   if (customMessage) message += customMessage + "<br>";
-  message += `${display} (${livesLeft}/9 életed maradt). Próbált betűk: ${tried}`;
+  message += `${display} (<span style="color: var(--red)">${livesLeft}/9 életed maradt</span>). Próbált betűk: ${tried}`;
 
   statusLine.innerHTML = message;
   terminal.insertBefore(statusLine, inputLine);
   scrollToBottom();
+
+  // === Load panel content dynamically ===
+  const wrongGuesses = 9 - hangman.lives;
+  const panel = document.getElementById("hangman-panel");
+
+  fetch(`/assets/jatek/${wrongGuesses}.txt`)
+    .then(response => {
+      if (!response.ok) throw new Error("Nem található fájl");
+      return response.text();
+    })
+    .then(text => {
+      const html = text
+        .split('\n')
+        .map(line => line.replace(/ /g, '&nbsp;') + '<br>')
+        .join('');
+      panel.innerHTML = `<pre>${html}</pre>`;
+    })
+    .catch(error => {
+      panel.innerHTML = `<p style="color:red;">Nem található: ${wrongGuesses}.txt</p>`;
+    });
 }

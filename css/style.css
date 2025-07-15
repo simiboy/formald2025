@@ -66,8 +66,8 @@ td:first-child {
   display: inline-block;
   margin-right: 0.5rem;
   padding: 0.2rem 0.5rem;
-  background-color: #eee;
-  color: black;
+  background-color: var(--beige);
+  color: var(--background);
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.2s;
@@ -218,6 +218,11 @@ p a:hover, h1 a:hover {
   color: white;
 }
 
+
+
+/* left and right panels */
+
+
 #binary-sidebar {
   top: 0;
   height: 100vh;
@@ -242,4 +247,19 @@ p a:hover, h1 a:hover {
   position: fixed;
   left: 2ch;
   line-height: 16px;
+}
+
+.hangman-panel pre{
+  position: fixed;
+  font-family: "Ubuntu Mono", monospace;
+  line-height: 16px;
+  letter-spacing: .4ch;
+  top: 0;
+  color: var(--red);
+  font-weight: bold;
+  right: 0;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 1000;
+  margin-top: calc(50vh - 14 * 16px);
 }
