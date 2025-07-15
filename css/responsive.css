@@ -1,3 +1,36 @@
+@media screen and (max-width: 1450px) {
+    #terminal {
+        max-width: 600px;
+    }
+}
+
+@media screen and (max-width: 1200px){
+    #ascii-art, #binary-sidebar{
+        display: none;
+    }
+    #terminal {
+        margin-left: 0;
+    }
+}
+
+@media screen and (max-width: 950px) {
+    #terminal {
+        max-width: 400px;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    #terminal {
+        max-width: 700px;
+    }
+}
+
+
+
+
+
+
+
 @media screen and (max-height: 760px) {
     .korabbi-grid, gyik-grid {
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));

@@ -1,7 +1,8 @@
 :root {
-  --blue: #1c61ad;
-  --lightblue: #26aae1;
-  --red: #e83f24;
+  --blue: #2ca0d9;
+  --red: #f46527;
+  --beige: #c39e42;
+  --background: #fff;
 }
 html,
 body {
@@ -10,14 +11,15 @@ body {
 }
 
 body {
-  font-family: "Poppins", sans-serif;
   margin: 0;
   padding: 0;
-  background-color: var(--firstcolor);
   overflow-x: hidden;
-  background-color: #bbb;
-  color: black;
-  font-family: monospace;
+  background-color: var(--background);
+  color: var(--blue);
+  font-family: "Ubuntu Mono", monospace;
+  font-weight: 400;
+  font-style: normal;
+
 }
 
 #terminal {
@@ -33,7 +35,8 @@ body {
   border: none;
   color: inherit;
   width: 90%;
-  font-family: monospace;
+  font-family: "Ubuntu Mono", monospace;
+  font-weight: 400;
   font-size: 1em;
 }
 .input-line input:focus {
@@ -74,14 +77,26 @@ td:first-child {
   background-color: #ccc;
 }
 
-p a {
-  padding: 0px 5px;
-  margin-right: 5px;
-  text-decoration: none;
-  color: var(--blue);
+
+
+
+/* Basic style */
+
+
+h1{
+  font-size: 1.2rem;
+  color: var(--red);
+  text-transform: uppercase;
 }
-p a:hover {
-  background-color: var(--blue);
+
+
+p a, h1 a {
+  text-decoration: none;
+  font-weight: bold;
+  color: var(--beige);
+}
+p a:hover, h1 a:hover {
+  background-color: var(--beige);
   color: white;
 }
 
@@ -201,4 +216,30 @@ p a:hover {
 .question.selected {
   background-color: var(--blue);
   color: white;
+}
+
+#binary-sidebar {
+  top: 0;
+  height: 100vh;
+  color: var(--blue);
+  overflow: hidden;
+  white-space: pre-wrap;
+}
+#ascii-art {
+  top: 0;
+  color: #f46527;
+  white-space: pre;
+}
+#ascii-art pre{
+  margin: 0;
+  font-family: "Ubuntu Mono", monospace;
+  font-weight: 400;
+  z-index: 100;
+}
+
+#binary-sidebar, #ascii-art{
+  letter-spacing: .4ch;
+  position: fixed;
+  left: 2ch;
+  line-height: 16px;
 }

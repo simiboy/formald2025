@@ -341,3 +341,66 @@ window.addEventListener("DOMContentLoaded", handleHash);
 // Also listen to hash changes (if # changes dynamically after load)
 window.addEventListener("hashchange", handleHash);
 
+
+// Binary sidebar
+
+const sidebar = document.getElementById('binary-sidebar');
+const asciiArt = document.getElementById('ascii-art');
+
+function generateBinaryLine(width) {
+  let line = '';
+  for (let i = 0; i < width; i++) {
+    line += Math.random() < 0.5 ? '0' : '1';
+  }
+  return line;
+}
+
+function updateSidebar() {
+  const lines = [];
+  const height = Math.floor(window.innerHeight / 10); // ~line height
+  for (let i = 0; i < height; i++) {
+    lines.push(generateBinaryLine(25));
+  }
+  sidebar.textContent = lines.join('\n');
+
+  // === RANDOMLY ADJUST ASCII ART MARGIN-TOP ===
+  const currentMargin = parseInt(getComputedStyle(asciiArt).marginTop) || 0;
+  const lineHeight = 16;
+
+  const rand = Math.random();
+  if (rand < 0.22) {
+    // 1/8 chance to subtract
+    asciiArt.style.marginTop = `${Math.max(0, currentMargin - lineHeight)}px`;
+  } else if (rand < 0.5) {
+    // next 1/8 chance to add
+    asciiArt.style.marginTop = `${currentMargin + lineHeight}px`;
+  }
+}
+
+setInterval(updateSidebar, 200); // Update every 200ms
+window.addEventListener('resize', updateSidebar);
+updateSidebar();
+
+function wrapCharsWithBg() {
+  const asciiArt = document.getElementById('ascii-art');
+  if (!asciiArt) return;
+
+  // Get raw text (with newlines)
+  const text = asciiArt.textContent;
+
+  // Convert each character to span (white bg for non-space)
+  let html = '';
+  for (const ch of text) {
+    if (ch === ' ') {
+      html += ch; // leave spaces as is (no span)
+    } else if (ch === '\n') {
+      html += '<br>'; // convert newlines to <br>
+    } else {
+      html += `<span style="background:white;">${ch}</span>`;
+    }
+  }
+
+  asciiArt.innerHTML = html;
+}
+
+wrapCharsWithBg();
