@@ -74,7 +74,7 @@ td:first-child {
 }
 
 .suggestion:hover {
-  background-color: #ccc;
+  background-color: var(--red);
 }
 
 
@@ -90,14 +90,14 @@ h1{
 }
 
 
-p a, h1 a {
+p a, h1 a, td a{
   text-decoration: none;
   font-weight: bold;
   color: var(--beige);
 }
-p a:hover, h1 a:hover {
+p a:hover, h1 a:hover, td a:hover {
   background-color: var(--beige);
-  color: white;
+  color: var(--background);
 }
 
 /*korabbiak*/
@@ -230,29 +230,39 @@ p a:hover, h1 a:hover {
   overflow: hidden;
   white-space: pre-wrap;
 }
-#ascii-art {
+#ascii-art, #ascii-art-horizontal {
   top: 0;
-  color: #f46527;
+  color: var(--red);
   white-space: pre;
 }
-#ascii-art pre{
+#ascii-art pre, #ascii-art-horizontal pre{
   margin: 0;
   font-family: "Ubuntu Mono", monospace;
   font-weight: 400;
   z-index: 100;
 }
 
-#binary-sidebar, #ascii-art{
+#binary-sidebar, #ascii-art, #binary-sidebar-horizontal, #ascii-art-horizontal{
   letter-spacing: .4ch;
   position: fixed;
   left: 2ch;
   line-height: 16px;
 }
 
+#binary-sidebar-horizontal, #ascii-art-horizontal{
+  position: absolute;
+  left: 0;
+  display: none;
+  top:2ch
+}
+#ascii-art-horizontal{
+  margin-top: -16px;
+}
+
 .hangman-panel pre{
   position: fixed;
   font-family: "Ubuntu Mono", monospace;
-  line-height: 16px;
+  line-height: 10px;
   letter-spacing: .4ch;
   top: 0;
   color: var(--red);
@@ -261,5 +271,5 @@ p a:hover, h1 a:hover {
   height: 100vh;
   overflow-y: auto;
   z-index: 1000;
-  margin-top: calc(50vh - 14 * 16px);
+  margin-top: calc(50vh - 14 * 10px);
 }

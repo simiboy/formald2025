@@ -14,6 +14,10 @@ const commands = {
       return null;
     },
   },
+  intro: {
+    type: "dynamic",
+    output: async () => await loadFile("intro.html"),
+  },
   about: {
     type: "dynamic",
     output: async () => await loadFile("about.html"),
@@ -380,16 +384,21 @@ function changeBackgroundColor(param) {
 
 
 // Run on initial load
-window.addEventListener("DOMContentLoaded", handleHash);
+window.addEventListener('DOMContentLoaded', () => {
+  handleHash();
+});
 
 // Also listen to hash changes (if # changes dynamically after load)
 window.addEventListener("hashchange", handleHash);
 
 
 // Binary sidebar
-
 const sidebar = document.getElementById('binary-sidebar');
 const asciiArt = document.getElementById('ascii-art');
+
+const sidebarH = document.getElementById('binary-sidebar-horizontal');
+const asciiArtH = document.getElementById('ascii-art-horizontal');
+let asciiArtHOffset = 0; // Number of charWidth steps
 
 function generateBinaryLine(width) {
   let line = '';
@@ -400,51 +409,76 @@ function generateBinaryLine(width) {
 }
 
 function updateSidebar() {
-  const lines = [];
-  const height = Math.floor(window.innerHeight / 10); // ~line height
-  for (let i = 0; i < height; i++) {
-    lines.push(generateBinaryLine(25));
+  // === VERTICAL SIDEBAR ===
+  if (sidebar) {
+    const height = Math.floor(window.innerHeight / 10);
+    const lines = [];
+    for (let i = 0; i < height; i++) {
+      lines.push(generateBinaryLine(25));
+    }
+    sidebar.textContent = lines.join('\n');
   }
-  sidebar.textContent = lines.join('\n');
 
-  // === RANDOMLY ADJUST ASCII ART MARGIN-TOP ===
-  const currentMargin = parseInt(getComputedStyle(asciiArt).marginTop) || 0;
-  const lineHeight = 16;
+  // === HORIZONTAL SIDEBAR ===
+  if (sidebarH) {
+    const width = Math.floor(window.innerWidth / 10); // ~char width
+    const lines = [];
+    for (let i = 0; i < 18; i++) {
+      lines.push(generateBinaryLine(width));
+    }
+    sidebarH.textContent = lines.join('\n');
+  }
 
-  const rand = Math.random();
-  if (rand < 0.22) {
-    // 1/8 chance to subtract
-    asciiArt.style.marginTop = `${Math.max(0, currentMargin - lineHeight)}px`;
-  } else if (rand < 0.5) {
-    // next 1/8 chance to add
-    asciiArt.style.marginTop = `${currentMargin + lineHeight}px`;
+  // === MOVE VERTICAL ASCII ART (UP-DOWN) ===
+  if (asciiArt) {
+    const currentMargin = parseInt(getComputedStyle(asciiArt).marginTop) || 0;
+    const lineHeight = 16;
+    const rand = Math.random();
+    if (rand < 0.22) {
+      asciiArt.style.marginTop = `${Math.max(0, currentMargin - lineHeight)}px`;
+    } else if (rand < 0.5) {
+      asciiArt.style.marginTop = `${currentMargin + lineHeight}px`;
+    }
+  }
+
+  // === MOVE HORIZONTAL ASCII ART (LEFT-RIGHT) ===
+  if (asciiArtH) {
+    const charWidth = 11.213;
+    const rand = Math.random();
+    if (rand < 0.23) {
+      asciiArtHOffset = Math.max(0, asciiArtHOffset - 1);
+    } else if (rand < 0.5) {
+      asciiArtHOffset += 1;
+    }
+
+    asciiArtH.style.marginLeft = `${asciiArtHOffset * charWidth}px`;
+
   }
 }
 
-setInterval(updateSidebar, 200); // Update every 200ms
-window.addEventListener('resize', updateSidebar);
-updateSidebar();
+function wrapCharsWithBg(id) {
+  const element = document.getElementById(id);
+  if (!element) return;
 
-function wrapCharsWithBg() {
-  const asciiArt = document.getElementById('ascii-art');
-  if (!asciiArt) return;
-
-  // Get raw text (with newlines)
-  const text = asciiArt.textContent;
-
-  // Convert each character to span (white bg for non-space)
+  const text = element.textContent;
   let html = '';
   for (const ch of text) {
     if (ch === ' ') {
-      html += ch; // leave spaces as is (no span)
+      html += ch;
     } else if (ch === '\n') {
-      html += '<br>'; // convert newlines to <br>
+      html += '<br>';
     } else {
       html += `<span style="background:var(--background);">${ch}</span>`;
     }
   }
-
-  asciiArt.innerHTML = html;
+  element.innerHTML = html;
 }
 
-wrapCharsWithBg();
+// Call once and set interval
+wrapCharsWithBg('ascii-art');
+wrapCharsWithBg('ascii-art-horizontal');
+
+setInterval(updateSidebar, 200);
+window.addEventListener('resize', updateSidebar);
+updateSidebar();
+

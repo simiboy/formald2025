@@ -7,12 +7,21 @@
     }
 }
 
-@media screen and (max-width: 1200px){
+@media screen and (max-width: 1240px){
     #ascii-art, #binary-sidebar{
         display: none;
     }
     #terminal {
         margin-left: 0;
+    }
+    #terminal{
+        padding-top: 40ch;
+    }
+    #binary-sidebar-horizontal, #ascii-art-horizontal{
+        display: block;
+    }
+    #hangman-panel pre{
+        margin-top: calc(75vh - 14 * 10px);
     }
 }
 
@@ -29,7 +38,6 @@
     #hangman-panel pre{
         display: none;
     }
-    
 }
 
 
