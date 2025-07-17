@@ -67,7 +67,7 @@ function printHangmanStatus(customMessage = null) {
   const wrongGuesses = 9 - hangman.lives;
   const panel = document.getElementById("hangman-panel");
 
-  fetch(`../assets/jatek/${wrongGuesses}.txt`)
+  fetch(`assets/jatek/${wrongGuesses}.txt`)
     .then(response => {
       if (!response.ok) throw new Error("Nem található fájl");
       return response.text();
