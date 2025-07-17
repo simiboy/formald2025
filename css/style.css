@@ -262,7 +262,7 @@ p a:hover, h1 a:hover, td a:hover {
 .hangman-panel pre{
   position: fixed;
   font-family: "Ubuntu Mono", monospace;
-  line-height: 10px;
+  line-height: 16px;
   letter-spacing: .4ch;
   top: 0;
   color: var(--red);
