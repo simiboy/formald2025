@@ -29,6 +29,7 @@ body {
 }
 .line {
   margin-bottom: 10px;
+  font-size: 1.3rem;
 }
 .input-line input {
   background: none;
@@ -129,7 +130,7 @@ p a:hover, h1 a:hover, td a:hover {
   height: 100%;
   opacity: 0;
   transition: 0.1s;
-  background-color: var(--blue);
+  background-color: var(--beige);
   top: 0;
 }
 .image_container:hover .image_overlay,
@@ -139,7 +140,7 @@ p a:hover, h1 a:hover, td a:hover {
 
 .image_text {
   font-size: 2rem;
-  color: white;
+  color: var(--background);
   position: absolute;
   top: 50%;
   left: 50%;
@@ -171,6 +172,9 @@ p a:hover, h1 a:hover, td a:hover {
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 10px;
   margin-bottom: 20px;
+  font-size: 1rem !important;
+  z-index: 1;
+  position: relative;
 }
 
 .korabbi-grid,
@@ -181,8 +185,8 @@ p a:hover, h1 a:hover, td a:hover {
 
 .question,
 .mobile-answer {
-  background-color: #ffffff;
-  color:black;
+  background-color: var(--blue);
+  color: var(--background);
   padding: 10px;
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -191,31 +195,33 @@ p a:hover, h1 a:hover, td a:hover {
 
 .mobile-answer {
   margin-top: -15px;
-  border: 5px solid var(--blue);
+  border: 5px solid var(--red);
+  color: var(--blue);
+  background: var(--background);
 }
 
 .answer-area {
-  background-color: #ffffff;
+  background: var(--background);
+  color: var(--blue);
   padding: 20px;
   padding-top: 5px;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-  border-top: 5px solid var(--blue);
+  border: 5px solid var(--red);
+  border-top: 20px solid var(--red);
   min-height: 200px;
 }
 
 #question-display {
   font-size: 1.5em;
-  color: #2a2a2a;
+  color: var(--red);
   margin-bottom: 10px;
 }
 
 #answer-display {
   font-size: 1.1em;
-  color: #444;
 }
 .question.selected {
-  background-color: var(--blue);
-  color: white;
+  background-color: var(--red);
 }
 
 

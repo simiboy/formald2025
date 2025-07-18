@@ -23,11 +23,22 @@
     #hangman-panel pre{
         margin-top: calc(75vh - 14 * 10px);
     }
-}
+    
+    .line {
+        font-size: 1.2rem;
+    }
+
+    .korabbi-grid, .gyik-grid {
+        margin-left: unset;
+    }
+} 
 
 @media screen and (max-width: 950px) {
     #terminal {
         max-width: 400px;
+    }
+    .line {
+        font-size: 1.1rem;
     }
 }
 
@@ -37,16 +48,14 @@
     }
     #hangman-panel pre{
         display: none;
+    }    
+    .line {
+        font-size: 1rem;
     }
-}
 
 
 
-
-
-
-
-@media screen and (max-height: 760px) {
+    
     .korabbi-grid, gyik-grid {
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
       }
