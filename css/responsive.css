@@ -27,6 +27,9 @@
     .line {
         font-size: 1.2rem;
     }
+    h1{
+        font-size: 1.4rem;
+    }
 
     .korabbi-grid, .gyik-grid {
         margin-left: unset;
@@ -40,6 +43,10 @@
     .line {
         font-size: 1.1rem;
     }
+    h1{
+        font-size: 1.3rem;
+    }
+
 }
 
 @media screen and (max-width: 700px) {
@@ -52,6 +59,10 @@
     .line {
         font-size: 1rem;
     }
+    h1{
+        font-size: 1.2rem;
+    }
+
 
 
 
