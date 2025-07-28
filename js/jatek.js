@@ -1,7 +1,39 @@
 let hangman = null;
 
 function startHangmanGame() {
-    const words = ["ÁRVÍZTŰRŐTÜKÖRFÚRÓGÉP", "MAGYARORSZÁG", "KÖZLEKEDÉS", "SZÁMÍTÓGÉP", "RENDSZERVÁLTÁS"];
+    const words = [
+      "VERSENY",
+      "SZÁMÍTÓGÉP",
+      "NYERTES",
+      "KIÁLLÍTÁS",
+      "WORKSHOP",
+      "KREATÍV",
+      "KRITIKUS",
+      "ERDETI",
+      "ARDUINO",
+      "PROGRAMOZÁS",
+      "AUTOMATA",
+      "ELEKTRONIKA",
+      "HANGVEZÉRLÉS",
+      "DIGITÁLIS",
+      "CSAPATMUNKA",
+      "VIDEÓJÁTÉK",
+      "MOZGÓKÉP",
+      "FENNTARTHATÓSÁG",
+      "ÖRÖKMOZGÓ",
+      "SZOFTVER",
+      "ISKOLA",
+      "PROJEKT",
+      "ALKOTÁS",
+      "INFORMATIKA",
+      "KÉPZŐMŰVÉSZ",
+      "AJÁNDÉKUTALVÁNY",
+      "GALÉRIA",
+      "KOMMUNIKÁCIÓ",
+      "ANIMÁCIÓ"
+    ];
+    
+    
     const word = words[Math.floor(Math.random() * words.length)];
 
   hangman = {
@@ -15,12 +47,18 @@ function startHangmanGame() {
   printHangmanStatus("Játék elindítva, írj be egy betűt!");
 }
 
+function normalizeLetter(letter) {
+  return letter.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
 // Handle letter guesses in hangman
 function handleHangmanGuess(letter) {
   if (!hangman || hangman.isGameOver) return;
 
   letter = letter.toUpperCase();
-  if (hangman.tried.has(letter)) {
+  const normalizedGuess = normalizeLetter(letter);
+
+  if (Array.from(hangman.tried).some(tried => normalizeLetter(tried) === normalizedGuess)) {
     printHangmanStatus(`Már próbáltad a(z) "${letter}" betűt.`);
     return;
   }
@@ -29,8 +67,8 @@ function handleHangmanGuess(letter) {
 
   let hit = false;
   for (let i = 0; i < hangman.word.length; i++) {
-    if (hangman.word[i] === letter) {
-      hangman.guessed[i] = letter;
+    if (normalizeLetter(hangman.word[i]) === normalizedGuess) {
+      hangman.guessed[i] = hangman.word[i]; // Keep the accented original
       hit = true;
     }
   }
@@ -57,7 +95,9 @@ function printHangmanStatus(customMessage = null) {
   const tried = Array.from(hangman.tried).join(", ");
   var message = "";
   if (customMessage) message += customMessage + "<br>";
-  message += `${display} (<span style="color: var(--red)">${livesLeft}/9 életed maradt</span>). Próbált betűk: ${tried}`;
+  if (customMessage == null || customMessage.startsWith("Játék")) {
+    message += `${display} (<span style="color: var(--red)">${livesLeft}/9 életed maradt</span>). Próbált betűk: ${tried}`;
+  }
 
   statusLine.innerHTML = message;
   terminal.insertBefore(statusLine, inputLine);
