@@ -259,12 +259,12 @@ function removeSuggestions() {
 }
 
 const getRandomSuggestions = () => {
-  const keys = Object.keys(commands).filter((k) => k !== "help");
+  const keys = Object.keys(commands).filter((k) => k !== "help" && k !== "nevezes");
   for (let i = keys.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [keys[i], keys[j]] = [keys[j], keys[i]];
   }
-  return ["help", ...keys.slice(0, 2 + Math.floor(Math.random() * 2))];
+  return ["help", "nevezes", ...keys.slice(0, 2 + Math.floor(Math.random() * 2))];
 };
 
 function resetInactivityTimer() {
