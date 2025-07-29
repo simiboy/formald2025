@@ -210,11 +210,13 @@ const scrollToBottom = () => {
 const inputLine = document.querySelector(".input-line");
 
 document.body.addEventListener("click", (e) => {
-  // If the clicked element is NOT a link (<a>)... or not a gyik element
-  if (
-    (e.target.tagName.toLowerCase() !== "a") &
-    (e.target.className !== "question selected")
-  ) {
+  const target = e.target;
+  const isLink = target.tagName.toLowerCase() === "a";
+  const isGyikSelected = target.className === "question selected";
+  const isInput = target.tagName.toLowerCase() === "input";
+
+  // If the clicked element is NOT a link (<a>) or not a gyik element ot not an input
+  if (!isLink && !isGyikSelected && !isInput) {
     input.focus();
   }
 });

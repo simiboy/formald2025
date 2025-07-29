@@ -6,6 +6,7 @@
 }
 html,
 body {
+  font-size: unset !important;
   width: 100%;
   height: 100%;
 }
@@ -32,6 +33,7 @@ body {
   font-size: 1.3rem;
 }
 .input-line input {
+  all: unset !important; 
   background: none;
   border: none;
   color: inherit;
@@ -278,4 +280,13 @@ p a:hover, h1 a:hover, td a:hover {
   overflow-y: auto;
   z-index: 1000;
   margin-top: calc(50vh - 14 * 10px);
+}
+
+
+
+/* NEVEZES */
+
+#login_nevezes{
+  border: 10px solid var(--blue);
+  padding: 10px;
 }
