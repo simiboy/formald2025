@@ -156,16 +156,24 @@ p a:hover, h1 a:hover, td a:hover {
 
 .ccc {
   max-width: 400px;
+  width: 100%;
 }
 .logo {
   position: relative;
   display: inline-block;
-  width: 0;
-  min-width: 180px;
+  width: 180px;
   padding: 10px;
   min-height: 80px;
   vertical-align: middle;
   text-align: center;
+}
+
+.logo img{
+  width: 100%;
+}
+
+.logo img:hover, .ccc:hover{
+  opacity: 0.6;
 }
 /* gyik */
 

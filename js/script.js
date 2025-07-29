@@ -150,7 +150,7 @@ input.addEventListener("keydown", async (e) => {
       }
     } else {
       type = "error";
-      response = `Unknown command: ${raw}`;
+      response = `Ismeretlen parancs: ${raw}`;
     }
 
     if (response) {
