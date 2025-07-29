@@ -50,6 +50,10 @@ const commands = {
     type: "dynamic",
     output: async () => await loadFile("kapcsolat.html"),
   },
+  partnerek: {
+    type: "dynamic",
+    output: async () => await loadFile("partnerek.html"),
+  },
   korabbi: {
     type: "dynamic",
     output: async () => await loadFile("korabbi_versenyek.html"),
