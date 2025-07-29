@@ -23,7 +23,7 @@ body {
 
 }
 
-#terminal {
+#terminal, .sponsor-bar  {
   max-width: 800px;
   margin: auto;
   padding: 30px;
@@ -31,6 +31,9 @@ body {
 .line {
   margin-bottom: 10px;
   font-size: 1.3rem;
+}
+.input-line{
+  margin-bottom: 60px;
 }
 .input-line input {
   all: unset !important; 
@@ -297,4 +300,54 @@ p a:hover, h1 a:hover, td a:hover {
 #login_nevezes{
   border: 10px solid var(--blue);
   padding: 10px;
+}
+
+/* SPONSOR BAR */
+
+.sponsor-bar {
+  width: 100%;
+  overflow: hidden;
+  height: 50px;
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+}
+
+.sponsor-track {
+  display: flex;
+  width: max-content;
+  animation: scroll-left 40s linear infinite;
+}
+
+.sponsor-logo {
+  flex: 0 0 auto;
+  padding: 0 30px;
+}
+
+.sponsor-logo img {
+  height: 40px;
+  max-height: 40px;
+  width: auto;
+  vertical-align: middle;
+}
+
+.sponsor-logo img:hover {
+  opacity: 0.6;
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(55%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+.sponsor-bar {
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  margin-left: calc(50vw - 400px);
+  background: var(--background);
 }

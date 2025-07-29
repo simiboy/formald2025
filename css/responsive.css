@@ -1,5 +1,5 @@
 @media screen and (max-width: 1450px) {
-    #terminal {
+    #terminal, .sponsor-bar {
         max-width: 600px;
     }
     #hangman-panel pre{
@@ -11,7 +11,7 @@
     #ascii-art, #binary-sidebar{
         display: none;
     }
-    #terminal {
+    #terminal, .sponsor-bar {
         margin-left: 0;
     }
     #terminal{
@@ -37,7 +37,7 @@
 } 
 
 @media screen and (max-width: 950px) {
-    #terminal {
+    #terminal, .sponsor-bar{
         max-width: 400px;
     }
     .line {
@@ -54,7 +54,7 @@
 }
 
 @media screen and (max-width: 700px) {
-    #terminal {
+    #terminal, .sponsor-bar {
         max-width: 700px;
     }
     #hangman-panel pre{
@@ -65,6 +65,14 @@
     }
     h1{
         font-size: 1.2rem;
+    }
+
+    .sponsor-bar{
+        display: none;
+    }
+
+    .input-line{
+        margin-bottom: 10px;
     }
 
 
