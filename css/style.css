@@ -317,7 +317,7 @@ p a:hover, h1 a:hover, td a:hover {
 .sponsor-track {
   display: flex;
   width: max-content;
-  animation: scroll-left 40s linear infinite;
+  animation: scroll-left 40s steps(200) infinite;
 }
 
 .sponsor-logo {
